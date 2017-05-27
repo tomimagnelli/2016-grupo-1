@@ -1,0 +1,23 @@
+{% extends 'layout/base.html.twig' %}
+
+{% block body_id 'usuario_new' %}
+
+{% block main %}
+    <div class="h4">Agregar usuario</div>
+
+    {{ form_start(form) }}
+        {{ form_row(form.username, { 'attr': {'class': 'hide-spinners'}}) }}
+        {{ form_row(form.apellido) }}
+        {{ form_row(form.nombre) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.telefono) }}
+        {{ form_row(form.profesion) }}
+        <div id="registration-medico-fields" style="display: none">
+            {{ form_row(form.matricula) }}
+            {{ form_row(form.especialidad) }}
+        </div>
+        {{ form_row(form.plainPassword) }}
+        <input type="submit" value="Guardar" class="btn btn-primary" />
+        <a class="btn btn-danger" href="{{ path('usuario_index') }}">Cancelar</a>
+    {{ form_end(form) }}
+{% endblock %}

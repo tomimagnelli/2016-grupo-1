@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+        {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+            {{ form_row(form.nombre) }}
+            {{ form_row(form.apellido) }}
+            {{ form_row(form.username, { 'attr': {'class': 'hide-spinners'}}) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.telefono) }}
+            {{ form_row(form.profesion) }}
+            <div id="registration-medico-fields" style="display: none">
+                {{ form_row(form.matricula) }}
+                {{ form_row(form.especialidad) }}
+            </div>
+            {{ form_row(form.plainPassword) }}
+            <div>
+                <input class="btn btn-primary btn-block" type="submit" value="Registrarse" />
+            </div>
+        {{ form_end(form) }}
+        </div>
+    </div>
+</div>

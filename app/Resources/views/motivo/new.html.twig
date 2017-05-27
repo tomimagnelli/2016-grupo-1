@@ -1,0 +1,14 @@
+{% extends 'layout/base.html.twig' %}
+
+{% block body_id 'motivo_new' %}
+
+{% block main %}
+    <div class="h4">Agregar motivo de consulta</div>
+
+    {{ form_start(form) }}
+        {{ form_row(form.motivo) }}
+
+        <input type="submit" value="Guardar" class="btn btn-primary" />
+        <a class="btn btn-danger" href="{{ path('motivo_index') }}">Cancelar</a>
+    {{ form_end(form) }}
+{% endblock %}

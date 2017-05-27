@@ -1,0 +1,83 @@
+{% extends 'layout/base.html.twig' %}
+
+{% block body_id 'visita_show' %}
+
+{% block main %}
+    <div class="h4">Visita médica</div>
+
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th>Paciente</th>
+                <td><a href="{{ path('paciente_show', {'id': visita.paciente.id }) }}">{{ visita.paciente }}</a></td>
+            </tr>
+            <tr>
+                <th>Médico</th>
+                <td><a href="{{ path('usuario_show', {'id': visita.medico.id }) }}">{{ visita.medico }}</a></td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td>{% if visita.fecha %}{{ visita.fecha|date('d/m/Y') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Motivos de consulta</th>
+                <td>
+                {% if visita.motivos is not empty %}
+                    <ul>
+                    {% for motivo in visita.motivos %}
+                        <li>{{ motivo.motivo }}</li>
+                    {% endfor %}
+                    </ul>
+                {% else %}-{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2"><label for="observaciones">Observaciones</label></th>
+                <td class="col-md-10"><textarea class="form-control" readonly rows="2" id="observaciones">{{ visita.observaciones|default('Sin observaciones') }}</textarea></td>
+            </tr>
+            <tr>
+                <th>Diagnósticos</th>
+                <td>
+                {% if visita.diagnosticos is not empty %}
+                    <ul>
+                        {% for diagnostico in visita.diagnosticos %}
+                            <li>{{ diagnostico.diagnostico }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}-{% endif %}
+                </td>
+            </tr>
+            {% if app.user == visita.medico %}
+                <tr>
+                    <th>Notas personales</th>
+                    <td>
+                    {% if visita.notasPersonales is not empty %}
+                        <textarea class="form-control" readonly>{{ visita.notasPersonales }}</textarea>
+                    {% else %}-{% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-link" href="{{ path('paciente_historia-clinica', {'id': visita.paciente.id}) }}">Volver a la historia clínica</a>
+
+{% endblock %}
+
+{% block sidebar %}
+    <div class="section">
+        <a href="{{ path('visita_edit', { 'id': visita.id }) }}" class="btn btn-md btn-block btn-success">
+            <i class="fa fa-edit" aria-hidden="true"></i> Editar visita
+        </a>
+    </div>
+
+    <div class="section">
+        {{ include('_delete_form.html.twig', {
+            form: delete_form,
+            button_label: 'Eliminar visita',
+            button_css: 'btn-md btn-block',
+        }) }}
+    </div>
+
+    {{ parent() }}
+{% endblock %}

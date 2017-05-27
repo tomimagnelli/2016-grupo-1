@@ -1,0 +1,156 @@
+{% extends 'layout/print/base.html.twig' %}
+
+{% block block_id %}examen_print{% endblock %}
+
+{% block document_title %}Examen prequirúrgico | Paciente: {{ examen.paciente }}{% endblock %}
+
+{% block main %}
+    <div class="panel panel-primary">
+        <div class="panel panel-body">
+            <div class="row">
+                <div class="col-xs-4">
+                    <span class="text-bold">Edad:</span> {{examen.paciente.edad|default('(no informada)')}}
+                </div>
+                <div class="col-xs-8">
+                    <span class="text-bold">Procedimiento:</span> {{ examen.procedimiento|default('(no informado)') }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <span class="text-bold">Documento:</span> {{examen.paciente.dni|default('(no informado)')}}
+                </div>
+                <div class="col-xs-8">
+                    <span class="text-bold">Derivado desde:</span> {{examen.derivadoDesde|default('(no informado)')}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel panel-heading">
+            Factores de riesgo
+        </div>
+        <div class="panel panel-body">
+            {% for factor in examen.factores %}
+                <input type="checkbox" disabled="true" checked></input>{{ factor }} 
+            {% else %}
+                {{examen.otrosFactores is empty ? '(ninguno)':''}}
+                (ninguno)
+            {% endfor %} 
+            {% if examen.otrosFactores is not empty %}
+                <span class="label label-primary">Otros:</span> {{examen.otrosFactores}}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel panel-heading">
+            <span class="text-bold">Medicación</span>
+        </div>
+        <div class="panel panel-body">
+            <div class="col-md-12">
+                <div class="row">
+                    {% for medicacion in examen.medicaciones %}
+                        <input type="checkbox" disabled="true" checked></input>{{ medicacion }} 
+                    {% else %}
+                        {{examen.otrasMedicaciones is empty ? '(ninguna)':''}}
+                    {% endfor %} 
+                    <span class="{{examen.medicaciones is not empty? 'label label-primary':''}}">Otras: </span> {{ examen.otrasMedicaciones|default(' (ninguna)') }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel panel-heading">
+            Antecedentes
+        </div>
+        <div class="panel panel-body">
+            {{ examen.antecedentes|default('(ninguno)')}}
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel panel-heading">
+            Examen físico
+        </div>
+        <div class="panel panel-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <span class="text-bold">Tensión arterial: </span> {{ examen.tensionArterial|default(' (no especificada)')}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2">
+                    <span class="text-bold">Aparato CV</span>
+                </div>
+                <div class="col-xs-5">
+                    Ruidos: 
+                    <input type="checkbox" disabled="true" {{ examen.ruido1 ? 'checked':''}}> R1 
+                    <input type="checkbox" disabled="true" {{ examen.ruido2 ? 'checked':''}}> R2 
+                    <input type="checkbox" disabled="true" {{ examen.ruido3 ? 'checked':''}}> R3 
+                    <input type="checkbox" disabled="true" {{ examen.ruido4 ? 'checked':''}}> R4
+                </div>
+                <div class="col-xs-5">
+                    <span class=text-bold">Soplos: </span> 
+                    <span class="label label-primary">{{examen.soplos?'Sí':'No'}}</span> 
+                    {{examen.soplosComentario}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <span class="text-bold">Aparato respiratorio: </span>{{examen.aparatoRespiratorio|default(' (sin observaciones)')}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <span class="text-bold">ECG: </span> {{examen.electrocardiograma|default(' (sin observaciones)')}}
+                </div>
+            </div>
+            {% if examen.comentarios is not empty %}
+                <div class="row">
+                    <div class="col-xs-12">
+                        <span class="text-bold">Comentarios: </span>{{examen.comentarios}}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel panel-heading">
+            Grado de riesgo cardiológico
+        </div>
+        <div class="panel panel-body">
+            <div class="row">
+                <div class="col-xs-2">
+                    <input type="radio" name="grado" {{ examen.gradoRiesgo == '1'? 'checked':''}}> 1 (uno)
+                </div>
+                <div class="col-xs-6">
+                    <input type="radio" name="grado" {{ examen.gradoRiesgo == '3'? 'checked':''}}> 3 (tres) con monitoreo cardiológico
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2">
+                    <input type="radio" name="grado" {{ examen.gradoRiesgo == '2'? 'checked':''}}> 2 (dos)
+                </div>
+                <div class="col-xs-6">
+                    <input type="radio" name="grado" {{ examen.gradoRiesgo == '4'? 'checked':''}}> 4 (cuatro) se contraindica cirugía
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel panel-body">
+            <div class="row">&nbsp;</div>
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <span class="text-bold">Fecha:</span> {{examen.fecha|date('d/m/Y')}}
+                </div>
+                <div class="col-xs-2">&nbsp;</div>
+                <div class="col-xs-4"><span class="text-bold">Firma y sello:</span></div>
+            </div>
+            <div class="row">&nbsp;</div>
+        </div>
+    </div>
+{% endblock %}

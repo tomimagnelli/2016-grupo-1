@@ -1,0 +1,55 @@
+{% extends 'layout/base.html.twig' %}
+
+{% block body_id 'medicacion_index' %}
+
+{% block main %}
+    <div class="h4">Lista de medicaciones</div>
+
+    {% if medicaciones is not empty %}
+    {{ include ('_delete_entity_confirmation.html.twig') }}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Medicación</th>
+                <th><i class="fa fa-cogs" aria-hidden="true"></i> Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for medicacion in medicaciones %}
+            <tr>
+                <td>{{ medicacion.medicacion }}</td>
+                <td>
+                    <div class="item-actions">
+                        <a href="{{ path('medicacion_edit', { 'id': medicacion.id }) }}" class="btn btn-sm btn-primary">
+                            <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                        </a>
+                        {{ include('_delete_form.html.twig', {
+                            attr: {'style': 'display: inline-block'},
+                            form: delete_forms[medicacion.id],
+                            includeModal: false,
+                            button_label: 'Eliminar',
+                            button_css: 'btn-sm',
+                        }) }}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(medicaciones) }}
+    </div>
+    {% else %}
+        <p>Aún no se ha registrado ninguna medicación.</p>
+    {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+    <div class="section">
+        <a href="{{ path('medicacion_new') }}" class="btn btn-md btn-block btn-success">
+            <i class="fa fa-plus" aria-hidden="true"></i> Agregar medicación
+        </a>
+    </div>
+
+    {{ parent() }}
+{% endblock %}

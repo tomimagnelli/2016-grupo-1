@@ -1,0 +1,57 @@
+{% extends 'layout/base.html.twig' %}
+
+{% block body_id 'localidad_index' %}
+
+{% block main %}
+    <div class="h4">Listado de localidades</div>
+
+    {% if localidades is not empty %}
+    {{ include ('_delete_entity_confirmation.html.twig') }}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Localidad</th>
+                <th>Partido</th>
+                <th><i class="fa fa-cogs" aria-hidden="true"></i> Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for localidad in localidades %}
+            <tr>
+                <td>{{ localidad.localidad }}</td>
+                <td>{{ localidad.partido }}</td>
+                <td>
+                    <div class="item-actions">
+                        <a href="{{ path('localidad_edit', { 'id': localidad.id }) }}" class="btn btn-sm btn-primary">
+                            <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                        </a>
+                        {{ include('_delete_form.html.twig', {
+                            attr: {'style': 'display: inline-block'},
+                            form: delete_forms[localidad.id],
+                            includeModal: false,
+                            button_label: 'Eliminar',
+                            button_css: 'btn-sm',
+                        }) }}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(localidades) }}
+    </div>
+    {% else %}
+        <p>Aún no se ha registrado ninguna localidad.</p>
+    {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+    <div class="section">
+        <a href="{{ path('localidad_new') }}" class="btn btn-md btn-block btn-success">
+            <i class="fa fa-plus" aria-hidden="true"></i> Agregar localidad
+        </a>
+    </div>
+
+    {{ parent() }}
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'layout/base.html.twig' %}
+
+{% block body_id 'motivo_index' %}
+
+{% block main %}
+    <div class="h4">Listado de motivos de consulta</div>
+
+    {% if motivos is not empty %}
+    {{ include ('_delete_entity_confirmation.html.twig') }}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Motivo de consulta</th>
+                <th><i class="fa fa-cogs" aria-hidden="true"></i> Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for motivo in motivos %}
+        <tr>
+            <td>{{ motivo.motivo }}</td>
+            <td>
+                <div class="item-actions">
+                    <a href="{{ path('motivo_edit', { 'id': motivo.id }) }}" class="btn btn-sm btn-primary">
+                        <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                    </a>
+                    {{ include('_delete_form.html.twig', {
+                        attr: {'style': 'display: inline-block'},
+                        form: delete_forms[motivo.id],
+                        includeModal: false,
+                        button_label: 'Eliminar',
+                        button_css: 'btn-sm',
+                    }) }}
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(motivos) }}
+    </div>
+    {% else %}
+        <p>Aún no se ha registrado ningún usuario.</p>
+    {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+    <div class="section">
+        <a href="{{ path('motivo_new') }}" class="btn btn-md btn-block btn-success">
+            <i class="fa fa-plus" aria-hidden="true"></i> Agregar motivo de consulta
+        </a>
+    </div>
+
+    {{ parent() }}
+{% endblock %}

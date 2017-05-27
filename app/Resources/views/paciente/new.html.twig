@@ -1,0 +1,31 @@
+{% extends 'layout/base.html.twig' %}
+
+{% block body_id 'paciente_new' %}
+
+    {% block main %}
+        <div class="h4">Agregar paciente</div>
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <label class="control-label required">Localidad</label>
+        <div class="form-group input-group">
+            <input type="text" 
+                   id="paciente_localidad_text" 
+                   readonly="readonly" required="required" 
+                   placeholder="Haga clic en el botón buscar para seleccionar una localidad" 
+                   class="form-control" 
+                   value="{{localidad_text|default("")}}">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-primary" id="boton-buscar-localidad">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+        </div>
+        <input type="submit" value="Guardar" class="btn btn-primary" />
+        <a class="btn btn-danger" href="{{ path('paciente_index') }}">Cancelar</a>
+        {{ form_end(form) }}
+
+        {{ include('_select_localidad.html.twig', {
+                partidos: partidos
+            }) }}
+    {% endblock %}

@@ -1,0 +1,119 @@
+/*!
+ * Start Bootstrap - Simple Sidebar (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+
+ body {
+    overflow-x: hidden;
+ }
+
+/* Toggle Styles */
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#sidebar-wrapper {
+    margin-top: -21px;
+    z-index: 1000;
+    position: fixed;
+    left: 196px;
+    width: 0;
+    height: 100%;
+    margin-left: -196px;
+    overflow-y: auto;
+    background-color: #ecf0f0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 196px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav ul li a {
+    height: 40px;
+    text-indent: 10px;
+    line-height: 20px;
+    padding-left: 20px;
+    background-color: #e0e0e0; /* color fondo enlace interno */
+}
+
+.sidebar-nav ul li a:hover {
+    background-color: #e8e8e8;
+}
+
+.sidebar-nav li a {
+    display: block;
+    width: 200px;
+    text-decoration: none;
+    color: #2c3e50; /* color texto enlace externo */
+    background-color: #ecf0f0; /* color fondo enlace externo */
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #34495e;
+    background: #f9f9f9; /* color hover enlaces en general? */
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    font-weight: bold;
+    width: 200px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #fff;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 196px;
+    }
+
+    #sidebar-wrapper {
+        width: 200px;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+}
